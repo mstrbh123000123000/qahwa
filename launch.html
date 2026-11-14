@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>إنشاء QAHWA — نشر بضغطة واحدة</title>
+<meta name="description" content="انشر عقد عملة QAHWA في محفظتك أنت، على BNB Chain أو Base، بضغطة واحدة. لا وسيط، ولا صلاحيات إدارية.">
+<meta name="theme-color" content="#140c08">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="شعار QAHWA">
+      <span>QAHWA</span>
+    </a>
+    <a class="nav-cta" href="index.html">الصفحة الرئيسية</a>
+  </div>
+</nav>
+
+<div class="wrap launch-head">
+  <div class="chip"><span class="dot"></span> النشر يتم من محفظتك، لا من محفظتنا</div>
+  <h1 style="font-size:clamp(28px,5vw,44px)">أنشئ عملتك في ٤ خطوات</h1>
+  <p style="max-width:640px;margin:0 auto">
+    العقد جاهز ومُجمَّع ومختبَر. كل ما تحتاجه محفظة فيها بضعة دولارات من BNB أو ETH
+    لتغطية رسوم الشبكة. العرض كله سيصل إلى محفظتك أنت.
+  </p>
+</div>
+
+<div class="wrap launch">
+
+  <div class="warn">
+    <strong>لماذا لا أستطيع الضغط بدلًا عنك؟</strong>
+    لأن من يملك مفتاح المحفظة يملك العملة. لو نشرتُ العقد من محفظة أنشأتها أنا،
+    لكان العرض كله تحت سيطرتي لا سيطرتك، وهذا آخر ما تريده. التوقيع الأخير يجب أن
+    يكون من جهازك. كل ما عداه جاهز هنا.
+  </div>
+
+  <!-- step 1 -->
+  <div class="step active" id="step1">
+    <div class="step-head"><div class="step-no">1</div><h3>افتح الصفحة داخل محفظتك</h3></div>
+    <p class="small">
+      إن كنت تقرأ هذا في متصفح عادي، انسخ الرابط وافتحه داخل متصفح Trust Wallet
+      أو MetaMask. الأزرار التالية تفتح الصفحة في التطبيق مباشرة.
+    </p>
+    <div class="row">
+      <a class="mini" id="openTrust" href="#">افتح في Trust Wallet</a>
+      <a class="mini" id="openMeta" href="#">افتح في MetaMask</a>
+      <button class="mini" id="copyLink" type="button">نسخ الرابط</button>
+    </div>
+  </div>
+
+  <!-- step 2 -->
+  <div class="step" id="step2">
+    <div class="step-head"><div class="step-no">2</div><h3>اربط المحفظة واختر الشبكة</h3></div>
+    <p class="small" id="walletLine">لم يتم الربط بعد.</p>
+    <div class="row" style="margin-bottom:14px">
+      <button class="btn btn-primary" id="connectBtn" type="button">اربط المحفظة</button>
+    </div>
+
+    <div class="chain-grid">
+      <div class="chain sel" data-chain="0x38" id="chainBnb">
+        <b>BNB Smart Chain</b>
+        <small>الأرخص والأكثر استخدامًا عربيًا · رسوم أقل من دولار · PancakeSwap</small>
+      </div>
+      <div class="chain" data-chain="0x2105" id="chainBase">
+        <b>Base</b>
+        <small>شبكة Coinbase · رسوم منخفضة · Uniswap · جمهور مختلف</small>
+      </div>
+    </div>
+    <p class="small" style="margin:12px 0 0" id="gasLine">تقدير الرسوم: يظهر بعد ربط المحفظة.</p>
+  </div>
+
+  <!-- step 3 -->
+  <div class="step" id="step3">
+    <div class="step-head"><div class="step-no">3</div><h3>راجع ثم انشر</h3></div>
+    <dl class="kv" style="margin-bottom:14px">
+      <dt>الاسم</dt><dd>Qahwa</dd>
+      <dt>الرمز</dt><dd>QAHWA</dd>
+      <dt>العرض</dt><dd>1,000,000,000 (ثابت)</dd>
+      <dt>الكسور</dt><dd>18</dd>
+      <dt>المالك</dt><dd>لا يوجد</dd>
+      <dt>رسوم التحويل</dt><dd>0%</dd>
+    </dl>
+
+    <label class="check"><input type="checkbox" id="ack1"> أفهم أن هذه عملة ميم بلا منتج أو إيرادات، وأن معظم العملات تفقد قيمتها بالكامل.</label>
+    <label class="check"><input type="checkbox" id="ack2"> أفهم أن النشر عملية دائمة على الشبكة ولا يمكن التراجع عنها، وأن رسوم الغاز غير قابلة للاسترداد.</label>
+    <label class="check"><input type="checkbox" id="ack3"> سأقفل السيولة أو أحرقها بعد الإنشاء، ولن أعد أحدًا بأرباح مضمونة.</label>
+
+    <div class="row" style="margin-top:16px">
+      <button class="btn btn-primary" id="deployBtn" type="button" disabled>انشر العقد الآن</button>
+    </div>
+    <div class="log" id="log"></div>
+  </div>
+
+  <!-- step 4 -->
+  <div class="step" id="step4">
+    <div class="step-head"><div class="step-no">4</div><h3>أضف السيولة وأقفلها</h3></div>
+    <p class="small">
+      العملة موجودة لكن لا سوق لها بعد. أنشئ بركة سيولة وضع فيها جزءًا من العرض
+      مع BNB أو ETH، ثم اقفل رموز LP فورًا. هذه الخطوة هي التي تفصل عملة محترمة
+      عن فخ.
+    </p>
+    <div class="center">
+      <a class="btn btn-ghost" id="dexLink" href="#" target="_blank" rel="noopener">أضف السيولة</a>
+      <a class="btn btn-ghost" id="lockLink" href="https://app.uncx.network/lockers/liquidity" target="_blank" rel="noopener">اقفل السيولة</a>
+    </div>
+    <p class="small" style="margin-bottom:0">
+      احتفظ بما لا يقل عن 55% من العرض للتوزيع المجتمعي والتسويق. لا تضع كل العملات في البركة.
+    </p>
+  </div>
+
+  <!-- success -->
+  <div class="ok-box" id="okBox">
+    <h3>تم النشر بنجاح</h3>
+    <p class="small" style="margin-bottom:8px">عنوان العقد:</p>
+    <div class="mono" id="tokenAddr">—</div>
+    <div class="row">
+      <button class="mini" id="copyAddr" type="button">نسخ العنوان</button>
+      <button class="mini" id="addToken" type="button">أضف العملة للمحفظة</button>
+      <a class="mini" id="explorerLink" href="#" target="_blank" rel="noopener">افتح في المستكشف</a>
+    </div>
+    <p class="small" style="margin-top:14px;margin-bottom:0">
+      خذ لقطة شاشة لهذا العنوان الآن. انشره في تيليجرام وX قبل أي شيء آخر،
+      وضع رابط المستكشف حتى يتحقق الناس بأنفسهم.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>ماذا يحدث تقنيًا عند الضغط؟</h3>
+    <p class="small">
+      توقّع محفظتك معاملة إنشاء عقد واحد. تُنفَّذ مرة واحدة، ويُسك مليار عملة
+      وتُرسل إلى عنوانك. لا يبقى للمنشئ أي صلاحية بعد ذلك: لا سك، لا تجميد،
+      لا تعديل. هذا مقصود: كلما قلّت سلطة المنشئ، زادت ثقة المشتري.
+    </p>
+    <p class="small" style="margin-bottom:0">
+      كود المصدر الكامل متاح في ملف <a href="Qahwa.sol">Qahwa.sol</a> داخل الموقع نفسه،
+      ويمكنك لصقه في Remix ومقارنة البايت كود قبل النشر.
+    </p>
+  </div>
+
+  <div class="warn" style="border-color:rgba(217,164,65,.35);background:rgba(217,164,65,.07);color:#f3ddba">
+    <strong>احترس من النسخ المزيفة:</strong> أي شخص يستطيع إنشاء عملة باسم QAHWA.
+    العنوان الوحيد الصحيح هو الذي ينشئه هذا الزر ويظهر لك بعد النشر. احفظه، ولا تثق
+    بعنوان يرسله لك أحد في الخاص.
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>QAHWA · أداة نشر مفتوحة المصدر</span>
+    <a href="index.html">العودة للرئيسية</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  const ABI = [
+    "constructor()",
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function decimals() view returns (uint8)",
+    "function totalSupply() view returns (uint256)",
+    "function balanceOf(address) view returns (uint256)",
+    "function transfer(address to, uint256 value) returns (bool)"
+  ];
+
+  const BYTECODE = "0x608060405234801561000f575f80fd5b506b033b2e3c9fd0803ce80000005f803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f20819055503373ffffffffffffffffffffffffffffffffffffffff165f73ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6b033b2e3c9fd0803ce80000006040516100c691906100eb565b60405180910390a3610104565b5f819050919050565b6100e5816100d3565b82525050565b5f6020820190506100fe5f8301846100dc565b92915050565b610bb9806101115f395ff3fe608060405234801561000f575f80fd5b5060043610610091575f3560e01c8063313ce56711610064578063313ce5671461013157806370a082311461014f57806395d89b411461017f578063a9059cbb1461019d578063dd62ed3e146101cd57610091565b806306fdde0314610095578063095ea7b3146100b357806318160ddd146100e357806323b872dd14610101575b5f80fd5b61009d6101fd565b6040516100aa91906107b4565b60405180910390f35b6100cd60048036038101906100c89190610865565b610236565b6040516100da91906108bd565b60405180910390f35b6100eb610323565b6040516100f891906108e5565b60405180910390f35b61011b600480360381019061011691906108fe565b610333565b60405161012891906108bd565b60405180910390f35b6101396104ba565b6040516101469190610969565b60405180910390f35b61016960048036038101906101649190610982565b6104bf565b60405161017691906108e5565b60405180910390f35b6101876104d3565b60405161019491906107b4565b60405180910390f35b6101b760048036038101906101b29190610865565b61050c565b6040516101c491906108bd565b60405180910390f35b6101e760048036038101906101e291906109ad565b610522565b6040516101f491906108e5565b60405180910390f35b6040518060400160405280600581526020017f516168776100000000000000000000000000000000000000000000000000000081525081565b5f8160015f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f8573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f20819055508273ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff167f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b9258460405161031191906108e5565b60405180910390a36001905092915050565b6b033b2e3c9fd0803ce800000081565b5f8060015f8673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f20549050828110156103f3576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016103ea90610a35565b60405180910390fd5b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff81146104a35782816104269190610a80565b60015f8773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f3373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f20819055505b6104ae858585610542565b60019150509392505050565b601281565b5f602052805f5260405f205f915090505481565b6040518060400160405280600581526020017f514148574100000000000000000000000000000000000000000000000000000081525081565b5f610518338484610542565b6001905092915050565b6001602052815f5260405f20602052805f5260405f205f91509150505481565b5f73ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff16036105b0576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016105a790610afd565b60405180910390fd5b5f805f8573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f2054905081811015610633576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161062a90610b65565b60405180910390fd5b8181035f808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f2081905550815f808573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020015f205f82825401925050819055508273ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff167fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef8460405161071c91906108e5565b60405180910390a350505050565b5f81519050919050565b5f82825260208201905092915050565b5f5b83811015610761578082015181840152602081019050610746565b5f8484015250505050565b5f601f19601f8301169050919050565b5f6107868261072a565b6107908185610734565b93506107a0818560208601610744565b6107a98161076c565b840191505092915050565b5f6020820190508181035f8301526107cc818461077c565b905092915050565b5f80fd5b5f73ffffffffffffffffffffffffffffffffffffffff82169050919050565b5f610801826107d8565b9050919050565b610811816107f7565b811461081b575f80fd5b50565b5f8135905061082c81610808565b92915050565b5f819050919050565b61084481610832565b811461084e575f80fd5b50565b5f8135905061085f8161083b565b92915050565b5f806040838503121561087b5761087a6107d4565b5b5f6108888582860161081e565b925050602061089985828601610851565b9150509250929050565b5f8115159050919050565b6108b7816108a3565b82525050565b5f6020820190506108d05f8301846108ae565b92915050565b6108df81610832565b82525050565b5f6020820190506108f85f8301846108d6565b92915050565b5f805f60608486031215610915576109146107d4565b5b5f6109228682870161081e565b93505060206109338682870161081e565b925050604061094486828701610851565b9150509250925092565b5f60ff82169050919050565b6109638161094e565b82525050565b5f60208201905061097c5f83018461095a565b92915050565b5f60208284031215610997576109966107d4565b5b5f6109a48482850161081e565b91505092915050565b5f80604083850312156109c3576109c26107d4565b5b5f6109d08582860161081e565b92505060206109e18582860161081e565b9150509250929050565b7f45524332303a20616c6c6f77616e636520746f6f206c6f7700000000000000005f82015250565b5f610a1f601883610734565b9150610a2a826109eb565b602082019050919050565b5f6020820190508181035f830152610a4c81610a13565b9050919050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f610a8a82610832565b9150610a9583610832565b9250828203905081811115610aad57610aac610a53565b5b92915050565b7f45524332303a207472616e7366657220746f207a65726f2061646472657373005f82015250565b5f610ae7601f83610734565b9150610af282610ab3565b602082019050919050565b5f6020820190508181035f830152610b1481610adb565b9050919050565b7f45524332303a2062616c616e636520746f6f206c6f77000000000000000000005f82015250565b5f610b4f601683610734565b9150610b5a82610b1b565b602082019050919050565b5f6020820190508181035f830152610b7c81610b43565b905091905056fea26469706673582212201786c50d90ff85c4662c522c321ed0e55ef7bc97915697abf1b189a5c141cdf164736f6c63430008180033";
+
+  const CHAINS = {
+    "0x38": {
+      id: "0x38", name: "BNB Smart Chain", sym: "BNB",
+      rpc: "https://bsc-dataseed.binance.org/",
+      explorer: "https://bscscan.com",
+      dex: "https://pancakeswap.finance/add/BNB/",
+      dexName: "PancakeSwap"
+    },
+    "0x2105": {
+      id: "0x2105", name: "Base", sym: "ETH",
+      rpc: "https://mainnet.base.org",
+      explorer: "https://basescan.org",
+      dex: "https://app.uniswap.org/add/ETH/",
+      dexName: "Uniswap"
+    }
+  };
+
+  let account = null;
+  let chainId = null;
+  let selected = "0x38";
+  let provider = null;
+  let lastToken = null;
+
+  const $ = (id) => document.getElementById(id);
+  const logEl = $("log");
+
+  function log(msg) {
+    logEl.classList.add("show");
+    logEl.textContent += msg + "\n";
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function setStep(n) {
+    ["step1", "step2", "step3", "step4"].forEach((id, i) => {
+      const el = $(id);
+      el.classList.toggle("active", i === n - 1);
+      el.classList.toggle("done", i < n - 1);
+    });
+  }
+
+  function short(a) { return a ? a.slice(0, 6) + "…" + a.slice(-4) : ""; }
+
+  function updateChecks() {
+    const ok = $("ack1").checked && $("ack2").checked && $("ack3").checked && !!account;
+    $("deployBtn").disabled = !ok;
+  }
+
+  function getEthereum() {
+    return window.ethereum || (window.web3 && window.web3.currentProvider) || null;
+  }
+
+  async function switchTo(id) {
+    const eth = getEthereum();
+    if (!eth) return;
+    try {
+      await eth.request({ method: "wallet_switchEthereumChain", params: [{ chainId: id }] });
+    } catch (err) {
+      if (err && (err.code === 4902 || err.code === -32603)) {
+        const c = CHAINS[id];
+        await eth.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: id,
+            chainName: c.name,
+            nativeCurrency: { name: c.sym, symbol: c.sym, decimals: 18 },
+            rpcUrls: [c.rpc],
+            blockExplorerUrls: [c.explorer]
+          }]
+        });
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  async function refreshBalance() {
+    if (!provider || !account) return;
+    try {
+      const bal = await provider.getBalance(account);
+      const c = CHAINS[selected];
+      $("gasLine").textContent = "الرصيد: " + Number(ethers.formatEther(bal)).toFixed(5) + " " + c.sym;
+    } catch (e) { /* ignore */ }
+  }
+
+  async function estimate() {
+    if (!provider || !account) return;
+    try {
+      const signer = await provider.getSigner();
+      const factory = new ethers.ContractFactory(ABI, BYTECODE, signer);
+      const tx = factory.getDeployTransaction();
+      const gas = await provider.estimateGas(Object.assign({}, tx, { from: account }));
+      const fee = await provider.getFeeData();
+      const price = fee.maxFeePerGas || fee.gasPrice || 0n;
+      const cost = gas * price;
+      const c = CHAINS[selected];
+      $("gasLine").textContent =
+        "الرصيد: " + Number(ethers.formatEther(await provider.getBalance(account))).toFixed(5) + " " + c.sym +
+        " · تقدير الرسوم: " + Number(ethers.formatEther(cost)).toFixed(6) + " " + c.sym;
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
+  async function connect() {
+    const eth = getEthereum();
+    if (!eth) {
+      alert("لم أجد محفظة في هذا المتصفح. افتح الصفحة داخل متصفح Trust Wallet أو MetaMask.");
+      return;
+    }
+    try {
+      const accounts = await eth.request({ method: "eth_requestAccounts" });
+      account = accounts[0];
+      chainId = await eth.request({ method: "eth_chainId" });
+
+      if (chainId !== selected) {
+        await switchTo(selected);
+        chainId = await eth.request({ method: "eth_chainId" });
+      }
+
+      provider = new ethers.BrowserProvider(eth);
+      $("walletLine").innerHTML =
+        "متصل: <strong style='color:var(--cream)'>" + short(account) + "</strong> · الشبكة: " +
+        (CHAINS[chainId] ? CHAINS[chainId].name : chainId);
+      $("connectBtn").textContent = "تم الربط";
+      setStep(3);
+      updateChecks();
+      estimate();
+
+      eth.on && eth.on("accountsChanged", () => location.reload());
+      eth.on && eth.on("chainChanged", () => location.reload());
+    } catch (err) {
+      console.error(err);
+      alert("تعذر ربط المحفظة: " + (err.message || err));
+    }
+  }
+
+  async function deploy() {
+    if (!provider || !account) return;
+    const btn = $("deployBtn");
+    btn.disabled = true;
+    btn.textContent = "جارٍ النشر…";
+    logEl.textContent = "";
+    try {
+      const net = await provider.getNetwork();
+      if ("0x" + net.chainId.toString(16) !== selected) {
+        await switchTo(selected);
+        provider = new ethers.BrowserProvider(getEthereum());
+      }
+
+      const signer = await provider.getSigner();
+      const factory = new ethers.ContractFactory(ABI, BYTECODE, signer);
+
+      log("1/3 · طلب تأكيد المعاملة من المحفظة…");
+      const contract = await factory.deploy();
+      log("2/3 · أُرسلت المعاملة: " + contract.deploymentTransaction().hash);
+      log("     بانتظار التأكيد على الشبكة…");
+
+      await contract.waitForDeployment();
+      const addr = await contract.getAddress();
+
+      log("3/3 · تم النشر: " + addr);
+
+      const c = CHAINS[selected];
+      lastToken = addr;
+      $("tokenAddr").textContent = addr;
+      $("explorerLink").href = c.explorer + "/token/" + addr;
+      $("dexLink").href = c.dex + addr;
+      $("dexLink").textContent = "أضف سيولة على " + c.dexName;
+      $("okBox").classList.add("show");
+      setStep(4);
+      $("okBox").scrollIntoView({ behavior: "smooth", block: "center" });
+
+      try {
+        const bal = await contract.balanceOf(account);
+        log("     رصيدك: " + Number(ethers.formatUnits(bal, 18)).toLocaleString("en-US") + " QAHWA");
+      } catch (e) { /* ignore */ }
+
+      btn.textContent = "تم النشر";
+      localStorage.setItem("qahwa_" + selected, addr);
+    } catch (err) {
+      console.error(err);
+      const msg = (err && (err.shortMessage || err.message)) || String(err);
+      log("خطأ: " + msg);
+      if (String(msg).toLowerCase().includes("insufficient")) {
+        log("الرصيد لا يكفي لرسوم الغاز. أضف القليل من عملة الشبكة ثم أعد المحاولة.");
+      }
+      btn.disabled = false;
+      btn.textContent = "أعد المحاولة";
+    }
+  }
+
+  function copy(text, label) {
+    navigator.clipboard.writeText(text).then(
+      () => alert(label + " تم النسخ"),
+      () => prompt("انسخ يدويًا:", text)
+    );
+  }
+
+  // init links
+  const here = location.href.split("#")[0];
+  $("copyLink").addEventListener("click", () => copy(here, "الرابط"));
+  $("openTrust").href = "https://link.trustwallet.com/open_url?url=" + encodeURIComponent(here);
+  $("openMeta").href = "https://metamask.app.link/dapp/" + here.replace(/^https?:\/\//, "");
+
+  document.querySelectorAll(".chain").forEach((el) => {
+    el.addEventListener("click", async () => {
+      document.querySelectorAll(".chain").forEach((x) => x.classList.remove("sel"));
+      el.classList.add("sel");
+      selected = el.dataset.chain;
+      try {
+        if (getEthereum()) {
+          await switchTo(selected);
+          chainId = selected;
+          provider = new ethers.BrowserProvider(getEthereum());
+          estimate();
+        }
+      } catch (e) { console.warn(e); }
+    });
+  });
+
+  $("connectBtn").addEventListener("click", connect);
+  ["ack1", "ack2", "ack3"].forEach((id) => $(id).addEventListener("change", updateChecks));
+  $("deployBtn").addEventListener("click", deploy);
+
+  $("copyAddr").addEventListener("click", () => lastToken && copy(lastToken, "عنوان العقد"));
+  $("addToken").addEventListener("click", async () => {
+    if (!lastToken || !getEthereum()) return;
+    try {
+      await getEthereum().request({
+        method: "wallet_watchAsset",
+        params: { type: "ERC20", options: { address: lastToken, symbol: "QAHWA", decimals: 18, image: location.origin + location.pathname.replace(/launch\.html$/, "") + "assets/logo.png" } }
+      });
+    } catch (e) { alert("تعذرت الإضافة التلقائية. أضف العنوان يدويًا في المحفظة."); }
+  });
+
+  if (!window.ethers) {
+    logEl.classList.add("show");
+    logEl.textContent = "تعذر تحميل مكتبة الاتصال بالشبكة. تحقق من الاتصال بالإنترنت ثم أعد تحميل الصفحة.";
+  }
+})();
+</script>
+</body>
+</html>
